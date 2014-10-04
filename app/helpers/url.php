@@ -14,15 +14,12 @@ class Url {
 	 * @param  boolean $fullpath if true use only url in redirect instead of using DIR
 	 */
 	public static function redirect($url = null, $fullpath = false){
-
 		if($fullpath == false){
-			header('location: '.DIR.$url);
-			exit;
-		} else {
-			header('location: '.$url);
-			exit;
+			$url = DIR . $url;
 		}
-
+		
+		header('Location: '.$url);
+		exit;
 	}
 
 	/**
@@ -42,11 +39,16 @@ class Url {
 	 * @return string         returns the data with links created around urls
 	 */
 	public static function autolink($text,$custom = null) {
-		if($custom == null){
-			return preg_replace('@(http)?(s)?(://)?(([-\w]+\.)+([^\s]+)+[^,.\s])@', '<a href="http$2://$4">$1$2$3$4</a>', $text);
+		$regex   = '@(http)?(s)?(://)?(([-\w]+\.)+([^\s]+)+[^,.\s])@';
+		$replace = '';
+		
+		if ($custom === null) {
+			$replace = '<a href="http$2://$4">$1$2$3$4</a>';
 		} else {
-			return preg_replace('@(http)?(s)?(://)?(([-\w]+\.)+([^\s]+)+[^,.\s])@', '<a href="http$2://$4">'.$custom.'</a>', $text);
+			$replace = '<a href="http$2://$4">'.$custom.'</a>';
 		}
+	
+		return preg_replace($regex, $replace, $text);
 	}
 
 	/**
@@ -70,8 +72,9 @@ class Url {
 
 	/**
          * Go to the previous url.
-         */
+        */
         public static function previous() {
-                header('Location: '.$_SERVER['HTTP_REFERER']);
-        }
+        	header('Location: '.$_SERVER['HTTP_REFERER']);
+		exit;
+    	}
 }

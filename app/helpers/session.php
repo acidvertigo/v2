@@ -90,22 +90,22 @@ class Session {
 	}
 	
 	/**
-        * @return string with the session id.
+         * @return string with the session id.
         */
-        public static function id() {
-                return session_id();
-        }
+    	public static function id() {
+        	return session_id();
+    	}
 
 	/**
 	 * return the session array
-	 * @return array array of session indexes
+	 * @return array of session indexes
 	 */
 	public static function display(){
 		return $_SESSION;
 	}
 	
 	/**
-	 * emptiey and destroy the session
+	 * empties and destroys the session
 	 */
 	public static function destroy($key){
 

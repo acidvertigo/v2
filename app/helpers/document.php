@@ -56,7 +56,7 @@ class Document {
 	 * @return string       
 	 */
 	public static function getExtension($file){
-		return substr(strrchr($file,'.'),1);
+		return pathinfo($file, PATHINFO_EXTENSION);
 	}
 	
 	/**
@@ -65,10 +65,9 @@ class Document {
 	 * @return file name missing extension
 	 */
 	public static function remove_extension($file){
-		$ext = strrchr($file,'.');
 		
-		if($ext !== false){
-			$file = substr($file, 0, -strlen($ext));
+		if(strpos($file, '.')){
+			$file = pathinfo($file, PATHINFO_FILENAME);
 		}
 		return $file;
 	}
